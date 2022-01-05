@@ -1386,9 +1386,9 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 		},
 	}
 
+	grpclog.SetLoggerV2(grpclog.NewLoggerV2WithVerbosity(os.Stderr, os.Stderr, os.Stderr, 99))
 	for _, tt := range tests {
 		t.Run(tt.inRecordLocation, func(t *testing.T) {
-			grpclog.SetLoggerV2(grpclog.NewLoggerV2WithVerbosity(os.Stderr, os.Stderr, os.Stderr, 99))
 			twoClustersTunnel(t, suite, now, tt.inRecordLocation, tt.outExecCountSiteA, tt.outExecCountSiteB)
 		})
 	}
