@@ -42,6 +42,7 @@ import (
 	"time"
 
 	"golang.org/x/crypto/ssh"
+	"google.golang.org/grpc/grpclog"
 
 	"github.com/gravitational/teleport"
 	apidefaults "github.com/gravitational/teleport/api/defaults"
@@ -1387,6 +1388,7 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 
 	for _, tt := range tests {
 		t.Run(tt.inRecordLocation, func(t *testing.T) {
+			grpclog.SetLoggerV2(grpclog.NewLoggerV2WithVerbosity(os.Stderr, os.Stderr, os.Stderr, 99))
 			twoClustersTunnel(t, suite, now, tt.inRecordLocation, tt.outExecCountSiteA, tt.outExecCountSiteB)
 		})
 	}
