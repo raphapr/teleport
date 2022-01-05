@@ -41,9 +41,6 @@ import (
 	"testing"
 	"time"
 
-	"golang.org/x/crypto/ssh"
-	"google.golang.org/grpc/grpclog"
-
 	"github.com/gravitational/teleport"
 	apidefaults "github.com/gravitational/teleport/api/defaults"
 	"github.com/gravitational/teleport/api/profile"
@@ -66,6 +63,8 @@ import (
 	"github.com/gravitational/teleport/lib/srv"
 	"github.com/gravitational/teleport/lib/sshutils"
 	"github.com/gravitational/teleport/lib/utils"
+	"golang.org/x/crypto/ssh"
+	"google.golang.org/grpc/grpclog"
 
 	"github.com/gravitational/trace"
 	"github.com/pborman/uuid"
@@ -614,6 +613,8 @@ func testInteroperability(t *testing.T, suite *integrationTestSuite) {
 // TestMain will re-execute Teleport to run a command if "exec" is passed to
 // it as an argument. Otherwise it will run tests as normal.
 func TestMain(m *testing.M) {
+	grpclog.SetLoggerV2(grpclog.NewLoggerV2WithVerbosity(os.Stderr, os.Stderr, os.Stderr, 99))
+
 	utils.InitLoggerForTests()
 	// If the test is re-executing itself, execute the command that comes over
 	// the pipe.
@@ -1386,7 +1387,6 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 		},
 	}
 
-	grpclog.SetLoggerV2(grpclog.NewLoggerV2WithVerbosity(os.Stderr, os.Stderr, os.Stderr, 99))
 	for _, tt := range tests {
 		t.Run(tt.inRecordLocation, func(t *testing.T) {
 			twoClustersTunnel(t, suite, now, tt.inRecordLocation, tt.outExecCountSiteA, tt.outExecCountSiteB)
