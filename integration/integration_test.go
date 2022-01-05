@@ -623,8 +623,7 @@ func TestMain(m *testing.M) {
 		srv.RunAndExit(os.Args[1])
 		return
 	}
-
-	// Otherwise run tests as normal.
+	// Otherwise, run tests as normal.
 	code := m.Run()
 	os.Exit(code)
 }
