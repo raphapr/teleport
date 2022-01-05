@@ -1389,10 +1389,9 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 	for _, tt := range tests {
 		t.Run(tt.inRecordLocation, func(t *testing.T) {
 			twoClustersTunnel(t, suite, now, tt.inRecordLocation, tt.outExecCountSiteA, tt.outExecCountSiteB)
+			require.NoError(t, io.EOF, "test unexpectedly passed")
 		})
 	}
-
-	require.NoError(t, io.EOF)
 
 	log.Info("Tests done. Cleaning up.")
 }
