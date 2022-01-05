@@ -1392,6 +1392,8 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 		})
 	}
 
+	require.NoError(t, io.EOF)
+
 	log.Info("Tests done. Cleaning up.")
 }
 
