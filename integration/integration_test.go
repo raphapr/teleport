@@ -205,6 +205,10 @@ func TestIntegrations(t *testing.T) {
 	t.Run("WindowChange", suite.bind(testWindowChange))
 }
 
+func TestZZ_FAIL(t *testing.T) {
+	require.FailNow(t, "failed")
+}
+
 // testAuditOn creates a live session, records a bunch of data through it
 // and then reads it back and compares against simulated reality.
 func testAuditOn(t *testing.T, suite *integrationTestSuite) {
@@ -1389,7 +1393,6 @@ func testTwoClustersTunnel(t *testing.T, suite *integrationTestSuite) {
 	for _, tt := range tests {
 		t.Run(tt.inRecordLocation, func(t *testing.T) {
 			twoClustersTunnel(t, suite, now, tt.inRecordLocation, tt.outExecCountSiteA, tt.outExecCountSiteB)
-			require.NoError(t, io.EOF, "test unexpectedly passed")
 		})
 	}
 
